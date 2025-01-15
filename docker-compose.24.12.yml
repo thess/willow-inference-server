@@ -2,15 +2,14 @@ services:
   wis:
     restart: unless-stopped
     image: ${IMAGE}:${TAG}
-    env_file:
-      - ./env-default
+    env_file: ./env.24.12
     shm_size: ${SHM_SIZE}
     ipc: host
     ulimits:
       memlock: -1
       stack: 67108864
     #build:
-    #  dockerfile: Dockerfile
+    #  dockerfile: Dockerfile.24.12
     ports:
       - ${LISTEN_IP}:${MEDIA_PORT_RANGE}:${MEDIA_PORT_RANGE}
     deploy:

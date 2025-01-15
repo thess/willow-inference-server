@@ -4,9 +4,9 @@ WIS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "$WIS_DIR"
 
 # Test for local environment file and use any overrides
-if [ ! -r .env ]; then
-    echo "Using configuration overrides from env-default file"
-    cp env-default .env
+if [ -r env.24.12 ]; then
+    echo "Using configuration overrides from env.24.12 file"
+    cp env.24.12 .env
 else
     echo "Using default configuration values"
     touch .env
@@ -42,7 +42,7 @@ GPUS=${GPUS:-"all"}
 # Detect GPU support
 if command -v nvidia-smi &> /dev/null; then
     DOCKER_GPUS="--gpus $GPUS"
-    DOCKER_COMPOSE_FILE="docker-compose.yml"
+    DOCKER_COMPOSE_FILE="docker-compose.24.12.yml"
 else
     echo "NVIDIA GPU Support not detected - using CPU"
     DOCKER_GPUS=""
@@ -218,7 +218,7 @@ freeze_requirements() {
 }
 
 build_docker() {
-    docker build -t "$IMAGE":"$TAG" .
+    docker build -f Dockerfile.24.12 -t "$IMAGE":"$TAG" .
 }
 
 shell() {
